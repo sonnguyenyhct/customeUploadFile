@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="vi">
+<head th:replace="/layout :: head">
+</head>
+<body>
+<h3>Display list product</h3>
+<p>
+    <a th:href="@{/product/create}">
+        Create new product
+    </a>
+</p>
+<table id="customers">
+    <thead>
+    <tr>
+        <th>Name product</th>
+        <th>Price</th>
+        <th>Amount</th>
+        <th>Image</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    <th:block th:each="product: ${listProduct}">
+        <tr>
+            <td th:text="${product.getNameProduct()}"></td>
+            <td th:text="${product.getPrice()}"></td>
+            <td th:text="${product.getAmount()}"></td>
+            <td><img th:src="@{'/i/' + ${product.getImage()}}" width="100px"></td>
+            <td> <a th:href="@{/product/edit/__${product.getIdProduct()}__}">Edit</a></td>
+            <td> <a th:href="@{/product/delete/__${product.getIdProduct()}__}">Delete</a></td>
+        </tr>
+    </th:block>
+</table>
+<footer th:replace="/layout :: footer"></footer>
+</body>
+</html>

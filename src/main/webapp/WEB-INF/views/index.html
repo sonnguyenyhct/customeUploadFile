@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="vi">
+<head th:replace="/layout :: head">
+</head>
+<body>
+    <h3>Display list customer</h3>
+    <p>
+        <a th:href="@{/customer/create}">
+            Create new customer
+        </a>
+    </p>
+    <form>
+        Search by first name:
+        <input name="s" type="text"/>
+        <input type="submit" value="Search"/>
+    </form><br/>
+    <table id="customers">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Address</th>
+            <th>Province</th>
+            <th>Avatar</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        <th:block th:each="customer: ${listCustomer}">
+            <tr>
+                <td th:text="${customer.getName()}"></td>
+                <td th:text="${customer.getEmail()}"></td>
+                <td th:text="${customer.getAddress()}"></td>
+                <td th:text="${customer.province.name}"></td>
+                <td><img th:src="@{'/i/' + ${customer.getImage()}}" width="100px"></td>
+                <td> <a th:href="@{/customer/edit/__${customer.getId()}__}">Edit</a></td>
+                <td> <a th:href="@{/customer/delete/__${customer.getId()}__}">Delete</a></td>
+            </tr>
+        </th:block>
+        <div>
+            <a th:href="@{''(page=${listCustomer.number - 1})}" th:if="${listCustomer.hasPrevious()}">Previous</a>
+            <span th:text="${listCustomer.number + 1}"></span>/<span th:text="${listCustomer.totalPages}"></span>
+            <a th:href="@{''(page=${listCustomer.number + 1})}" th:if="${listCustomer.hasNext()}">Next</a>
+        </div>
+    </table>
+
+    <footer th:replace="/layout :: footer"></footer>
+</body>
+</html>

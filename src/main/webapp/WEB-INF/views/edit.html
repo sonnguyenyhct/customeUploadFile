@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create</title>
+</head>
+<body>
+<h1>Edit customer</h1>
+
+<p>
+    <a href="/">Back to list Customer</a>
+</p>
+
+<form th:object="${customer}" method="post" enctype="multipart/form-data">
+    <input hidden name="id" th:value="*{id}">
+    <table>
+        <tr>
+            <td>Name</td>
+            <td><input name="name" th:value="*{name}"/></td>
+        </tr>
+        <tr>
+            <td>Email</td>
+            <td><input name="email" th:value="*{email}"/></td>
+        </tr>
+        <tr>
+            <td>Address</td>
+            <td><input name="address" th:value="*{address}"/></td>
+        </tr>
+        <tr>
+            <td>Province:</td>
+            <td>
+                <select name="province" th:field="*{province}">
+                    <option th:each="p : ${provinces}" th:value="${p.id}" th:text="${p.name}"></option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td><img th:src="@{'/i/' + ${customer.getImage()}}" width="100px"></td>
+        </tr>
+        <tr>
+            <td>Image</td>
+            <td><input name="avartar" type="file" th:value="*{avartar}"/></td>
+<!--            <td><p name="image1" type="text" th:value="*{image}"></p></td>-->
+        </tr>
+        <tr>
+            <td><input type="submit" value="Edit"/></td>
+        </tr>
+    </table>
+<!--    <input type="text" hidden name="image1" th:value="*{image.getOriginalFilename()}">-->
+</form>
+</body>
+</html>
